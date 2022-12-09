@@ -32,50 +32,58 @@ function checkCashRegister(price, cash, cid) {
     ["DIME", 10],
     ["NICKEL", 5],
     ["PENNY", 1]
-  ]
-    /*const toReturn = {
+  ];
+  let change = Math.round(cash*100 - price*100);
+  let cReg = cid.map(function(elem){
+    return [Math.round(elem[1]*100)];
+  });
+  cReg.forEach(function(elem, ind){
+    cReg[ind].unshift(cid[ind][0])
+  });
+  cReg.reverse();
+  let totalAv = cReg.reduce(function(acum,curr){
+    return acum+=curr[1];
+  },0);
+  const final = {
     status: null,
-     change: []
-  }*/
-  let price1 = Math.round(price*100);
-  let cash1 = Math.round(cash*100);
-  let change = cash1 - price1;
-  let cid1 = cid.map(function(elem){
-    elem[1] = Math.round(elem[1]*100);
-    return elem;
-  }).reverse();
-  let totalAvCash = cid1.reduce(function (acum, curr){return acum+curr[1]},0);
-  function substract(cond){
-    let toReturn = values.reduce(function(acum, curr, ind){
-      if(cond=="open"){
-      if(curr[1]<=change){
-        var cont = 0;        
-        while(cid1[ind][1]>=curr[1]&&curr[1]<=change){ 
-          change -= curr[1];
-          cid1[ind][1] -= curr[1];
-          cont++;
-        };
-        acum.push([curr[0], (curr[1]*cont)/100]);
-        };
-        } else if(cond == "closed"){
-          acum.push([cid1[cid1.length-ind-1][0], cid1[cid1.length-ind-1][1]/100])
-          return acum;
-        };
-    return acum;
-    },[]);
-    return toReturn
+    change: []
+  };
+  let open = [];
+  if(totalAv<change){
+    final.status = "INSUFFICIENT_FUNDS";
+    console.log(final);
+    return final;
   }
-  if(totalAvCash<change){
-    return {status: "INSUFFICIENT_FUNDS", change: []};
+  if(totalAv===change){
+    final.status = "CLOSED";
+    final.change = cid;
+    console.log(final);
+    return final;
   }
-  if(totalAvCash===change){
-    return {status: "CLOSED", change: substract("closed")}
-  }
-  /*if(change>0){
-    return {status: "INSUFFICIENT_FUNDS", change: []};
-  }*/
-return {status:"OPEN", change: substract("open")};
-}
+  for(let i=0; i<cid.length; i++){
+    if(change>0){
+      if(cReg[i][1]>values[i][1]&&change>=values[i][1]){
+      var cont = 0;
+      while(cReg[i][1]>=values[i][1]&&change>=values[i][1]){
+        change-=values[i][1];
+        cReg[i][1]-=values[i][1];
+        cont++;
+      }
+      open.push([values[i][0], (values[i][1]*cont)/100]);
+    };
+    };
+  };
+  if(change>0){
+    final.status = "INSUFFICIENT_FUNDS";
+    console.log(final);
+    return final;
+  };
+
+    final.status = "OPEN";
+    final.change = open;
+  console.log(final);
+  return final;
+};
 //Tests
 console.log(checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
 console.log(checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
