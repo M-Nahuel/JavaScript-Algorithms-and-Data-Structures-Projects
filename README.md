@@ -49,7 +49,7 @@ Return true if the passed string looks like a valid US phone number.
 
 The user may fill out the form field any way they choose as long as it has the format of a valid US number. The following are examples of valid formats for US numbers (refer to the tests below for other variants):
 
-	| Numbers |
+|Numbers |
 | ----------- |
 | 555-555-5555 |
 | (555)555-5555 |
@@ -74,7 +74,7 @@ Return {status: "CLOSED", change: [...]} with cash-in-drawer as the value for th
 
 Otherwise, return {status: "OPEN", change: [...]}, with the change due in coins and bills, sorted in highest to lowest order, as the value of the change key.
 
-	| Currency Unit | Amount |
+| Currency Unit | Amount |
 | ----------- | ----------- |
 | Penny | $0.01 (PENNY) |
 | Nickel | $0.05 (NICKEL) |
