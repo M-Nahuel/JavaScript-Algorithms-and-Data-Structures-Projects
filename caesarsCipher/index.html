@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Caesars Cipher</title>
+    </head>
+    <body>
+        <h1>Caesars Cipher</h1>
+        <p>One of the simplest and most widely known ciphers is a Caesar cipher, also known as a shift cipher.<br>
+            In a shift cipher the meanings of the letters are shifted by some set amount.<br>
+            A common modern use is the ROT13 cipher, where the values of the letters are shifted by 13 places.<br>
+            Thus A ↔ N, B ↔ O and so on.<br>
+            This program takes a ROT13 encoded string as input and returns a decoded string.<br>
+            (e.g GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT. ==> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.)
+        </p>
+        <h4>Enter your encoded string (ROT13) and then click "Decode".</h4>
+            <label for="code">Enter your code here</label>
+            <input type="text" id="code" />
+            <button id="decode">Decode</button>
+        <p id="output"></p>
+        <script src="csCiph.js"></script>
+    </body>
+
+</html>
