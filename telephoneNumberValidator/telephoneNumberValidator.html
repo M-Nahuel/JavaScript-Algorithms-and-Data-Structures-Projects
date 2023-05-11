@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Telephone Number Validator</title>
+    </head>
+    <body>
+        <h1>Telephone Number Validator</h1>
+        <p>This program checks if the passed string looks like a valid US phone number.
+            <br>
+            The user may fill out the form field any way they choose as long as it has
+            the format of a valid US number.
+            <br>
+            The following are examples of valid formats for US numbers:
+            <br>
+            <table>
+                <tr>
+                    <td>555-555-5555</td>
+                </tr>
+                <tr>
+                    <td>(555)555-5555</td>
+                </tr>
+                <tr>
+                    <td>(555) 555-5555</td>
+                </tr>
+                <tr>
+                    <td>555 555 5555</td>
+                </tr>
+                <tr>
+                    <td>5555555555</td>
+                </tr>
+                <tr>
+                    <td>1 555 555 5555</td>
+                </tr>
+            </table>
+            <br>
+        </p>
+        <h4>Enter your telephone number and then click "Check".</h4>
+            <label for="num">Enter your number here</label>
+            <input type="text" id="num" />
+            <button id="check">Check</button>
+        <p id="result"></p>
+        <script src="telephoneNumberValidator.js"></script>
+    </body>
+
+</html>
