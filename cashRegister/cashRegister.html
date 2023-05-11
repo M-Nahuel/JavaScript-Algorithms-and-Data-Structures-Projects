@@ -8,16 +8,17 @@
   <body>
     <h1>Cash Register</h1>
     <p>Please provide the required information</p>
-    <form method="post" action='https://register-demo.freecodecamp.org'>
+    <div id="box">
       <fieldset>
         <label for="purchase">Enter The Purchase Amount: <input id="purchase" name="purchase" type="number" required /></label>
         <label for="cash">Enter Cash Amount: <input id="cash" name="cash" type="number" required /></label>
         <p>TODO: stop providing CID manually</p>
         <label for="cid">Enter Cash in Drawer: <input id="cid" name="cid" type="text" required /></label>
       </fieldset>
-      <input type="submit" value="Submit" />
-    </form>
+      <button id="submit">Collect</button>
+    </div>
 
+    <p id="status"></p>
     <div>
       <h4>CID</h4>
       <p>[["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]</p>
@@ -26,5 +27,6 @@
     <p>[["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]</p>
     <p>[["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]</p>
     </div>
+    <script src="cashRegister.js"></script>
   </body>
 </html>
