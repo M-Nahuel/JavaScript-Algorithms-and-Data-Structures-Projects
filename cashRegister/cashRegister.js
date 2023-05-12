@@ -23,10 +23,10 @@ One-hundred Dollars	$100 (ONE HUNDRED)*/
 const button = document.getElementById('submit');
 const price = document.getElementById('purchase');
 const cash = document.getElementById('cash');
-const cid = document.getElementById('cid');
+//const cid = document.getElementById('cid');
 const stat = document.getElementById('status');
 
-function checkCashRegister(price, cash, cid) {
+function checkCashRegister(price, cash) {
     const values = [
       ["ONE HUNDRED", 10000],
       ["TWENTY", 2000],
@@ -38,6 +38,21 @@ function checkCashRegister(price, cash, cid) {
       ["NICKEL", 5],
       ["PENNY", 1]
     ];
+    //Cash in Drawer
+    let cid = [
+      ["PENNY", 1.01],
+      ["NICKEL", 2.05],
+      ["DIME", 3.1],
+      ["QUARTER", 4.25],
+      ["ONE", 90],
+      ["FIVE", 55],
+      ["TEN", 20],
+      ["TWENTY", 60],
+      ["ONE HUNDRED", 100]
+    ];
+
+    price = parseFloat(price);
+    cash = pareFloat(price);
     let change = Math.round(cash*100 - price*100);
     let cReg = cid.map(function(elem){
       return [Math.round(elem[1]*100)];
@@ -90,14 +105,15 @@ function checkCashRegister(price, cash, cid) {
     return final;
   };
 
-
   button.addEventListener('click', () => {
-    const st = checkCashRegister(price.value, cash.value, cid.value);
+    const st = checkCashRegister(price.value, cash.value);
     stat.textContent = `Status: ${st}`;
   });
 //Tests
+/*
 console.log(checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
 console.log(checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
 console.log(checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
 console.log(checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
 console.log(checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+*/
