@@ -23,44 +23,77 @@ One-hundred Dollars	$100 (ONE HUNDRED)*/
 const button = document.getElementById('submit');
 const price = document.getElementById('purchase');
 const cash = document.getElementById('cash');
-//const cid = document.getElementById('cid');
+const cid1 = document.getElementById('cid');
 const stat = document.getElementById('status');
+const table = document.getElementById('statusT');
 
 function checkCashRegister(price, cash) {
-    const values = [
-      ["ONE HUNDRED", 10000],
-      ["TWENTY", 2000],
-      ["TEN", 1000],
-      ["FIVE", 500],
-      ["ONE", 100],
-      ["QUARTER", 25],
-      ["DIME", 10],
-      ["NICKEL", 5],
-      ["PENNY", 1]
-    ];
-    //Cash in Drawer
-    let cid = [
-      ["PENNY", 1.01],
-      ["NICKEL", 2.05],
-      ["DIME", 3.1],
-      ["QUARTER", 4.25],
-      ["ONE", 90],
-      ["FIVE", 55],
-      ["TEN", 20],
-      ["TWENTY", 60],
-      ["ONE HUNDRED", 100]
-    ];
+//Cash in Drawer samples
+let cids = [
+  [
+  ["PENNY", 1.01],
+  ["NICKEL", 2.05],
+  ["DIME", 3.1],
+  ["QUARTER", 4.25],
+  ["ONE", 90],
+  ["FIVE", 55],
+  ["TEN", 20],
+  ["TWENTY", 60],
+  ["ONE HUNDRED", 100]
+  ],
+  [
+  ["PENNY", 0.01],
+  ["NICKEL", 0],
+  ["DIME", 0],
+  ["QUARTER", 0],
+  ["ONE", 0],
+  ["FIVE", 0],
+  ["TEN", 0],
+  ["TWENTY", 0],
+  ["ONE HUNDRED", 0]
+  ],
+  [
+  ["PENNY", 0.5],
+  ["NICKEL", 0],
+  ["DIME", 0],
+  ["QUARTER", 0],
+  ["ONE", 0],
+  ["FIVE", 0],
+  ["TEN", 0],
+  ["TWENTY", 0],
+  ["ONE HUNDRED", 0]
+  ]
+  ];
+
+  const values = [
+    ["ONE HUNDRED", 10000],
+    ["TWENTY", 2000],
+    ["TEN", 1000],
+    ["FIVE", 500],
+    ["ONE", 100],
+    ["QUARTER", 25],
+    ["DIME", 10],
+    ["NICKEL", 5],
+    ["PENNY", 1]
+  ];
+  //select an aleatory cid
+  let rnd = Math.floor(Math.random()*3);
+  cid = cids[rnd];
 
     price = parseFloat(price);
-    cash = pareFloat(price);
+    cash = parseFloat(cash);
     let change = Math.round(cash*100 - price*100);
+    //cash in drawer but only values
     let cReg = cid.map(function(elem){
       return [Math.round(elem[1]*100)];
     });
+    
+    //add dennominations
     cReg.forEach(function(elem, ind){
       cReg[ind].unshift(cid[ind][0])
     });
     cReg.reverse();
+    //total available
     let totalAv = cReg.reduce(function(acum,curr){
       return acum+=curr[1];
     },0);
@@ -82,7 +115,8 @@ function checkCashRegister(price, cash) {
     }
     for(let i=0; i<cid.length; i++){
       if(change>0){
-        if(cReg[i][1]>values[i][1]&&change>=values[i][1]){
+        //>= added 1st
+        if(cReg[i][1]>=values[i][1]&&change>=values[i][1]){
         var cont = 0;
         while(cReg[i][1]>=values[i][1]&&change>=values[i][1]){
           change-=values[i][1];
@@ -99,21 +133,49 @@ function checkCashRegister(price, cash) {
       return final;
     };
   
-      final.status = "OPEN";
-      final.change = open;
+    final.status = "OPEN, your change is:";
+    final.change = open;
     console.log(final);
     return final;
   };
 
+  function displayTable(st) {
+    table.innerHTML = '';
+    if(st.length >= 0){
+    const head = document.createElement('tr');
+    
+    const thD = document.createElement('th');
+    thD.textContent = 'Denomination';
+    head.appendChild(thD);
+
+    const thA = document.createElement('th');
+    thA.textContent = 'Amount';
+    head.appendChild(thA);
+
+    table.appendChild(head);
+
+    for (let i=0; i<st.length; i++) {
+      const tr = document.createElement('tr');
+
+      const tdD = document.createElement('td');
+      tdD.textContent = st[i][0];
+      tr.appendChild(tdD);
+      
+      const tdA = document.createElement('td');
+      tdA.textContent = st[i][1];
+      tr.appendChild(tdA);
+      
+      table.appendChild(tr);
+    }
+
+    const div = document.getElementById('result');
+    div.appendChild(table);
+  };
+  };
+  
+
   button.addEventListener('click', () => {
     const st = checkCashRegister(price.value, cash.value);
-    stat.textContent = `Status: ${st}`;
+    stat.textContent = `Status: ${st.status}`;
+    displayTable(st.change);
   });
-//Tests
-/*
-console.log(checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
-console.log(checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
-console.log(checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
-console.log(checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
-console.log(checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
-*/
